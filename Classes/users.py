@@ -5,13 +5,20 @@ class Usuario(ABC):
         self.password = password
         self.telefono = telefono
 
-class Admin(Usuario): #no se registra en el sistema, se crea con login y contraseña predeterminada
+class Admin(Usuario): 
+    #no se registra en el sistema, se crea con login y contraseña predeterminada
     #metodo para bloquear/desbloquear usuario
     #metodo para habilitar eventos
     pass
 
 
-class Ciudadano(Usuario): #se registra en el sistema
+class Ciudadano(Usuario): 
+    #se registra en el sistema
     #lista de contactos de interes
-    #valor si esta bloqueado o no
+    # blocked = []  lista de bloqueados
+    #def isBlocked(usuario): valor si esta bloqueado o no
+    #  for i in blocked
+    #       if usuario == i
+    #           return True
+    #   return False
     pass
