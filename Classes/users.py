@@ -7,7 +7,6 @@ class Usuario(ABC):
 
 class Admin(Usuario): 
     #no se registra en el sistema, se crea con login y contraseña predeterminada
-    #metodo para bloquear/desbloquear usuario
     #metodo para habilitar eventos
     pass
 
