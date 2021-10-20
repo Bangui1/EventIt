@@ -12,13 +12,14 @@ class Admin(Usuario):
     pass
 
 
-class Ciudadano(Usuario): 
+
+class Ciudadano(Usuario):
     #se registra en el sistema
     #lista de contactos de interes
-    # blocked = []  lista de bloqueados
-    #def isBlocked(usuario): valor si esta bloqueado o no
-    #  for i in blocked
-    #       if usuario == i
-    #           return True
-    #   return False
+    #lista de bloqueados
+    def isBlocked(self,usuario):# valor si esta bloqueado o no
+        for i in self.blocked:
+            if usuario == i:
+                return True
+        return False
     pass
