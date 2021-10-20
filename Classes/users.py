@@ -10,8 +10,6 @@ class Admin(Usuario):
     #metodo para habilitar eventos
     pass
 
-
-
 class Ciudadano(Usuario):
     #se registra en el sistema
     friends = [] #lista de contactos de interes
