@@ -1,3 +1,4 @@
+import pandas
 class Login:
     #def register(): #usar manejo de archivos para poder crear usuarios y escribirlos en un .txt o .csv(usando pandas)
     #def login(): #leer y buscar en el archivo donde se guardan los usuarios
