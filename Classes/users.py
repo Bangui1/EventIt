@@ -10,10 +10,11 @@ class Usuario(ABC):
 class Admin(Usuario): 
     #no se registra en el sistema, se crea con login y contraseña predeterminada
     #metodo para habilitar eventos
+    #bloquear y desbloquear ciudadanos
     pass
 
 class Ciudadano(Usuario):
     #se registra en el sistema
-    #lista de contactos de interes
-    #usuarios bloqueados
+    # o se logea en el sistema
+    pass
   
