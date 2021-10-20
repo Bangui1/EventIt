@@ -14,9 +14,4 @@ class Ciudadano(Usuario):
     #se registra en el sistema
     friends = [] #lista de contactos de interes
     blocked = [] #usuarios bloqueados
-    def isBlocked(self,usuario):# valor si esta bloqueado o no
-        for i in self.blocked:
-            if usuario == i:
-                return True
-        return False
-    pass
+  
