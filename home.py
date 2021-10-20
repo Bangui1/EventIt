@@ -5,8 +5,8 @@ class Home:
     #si es admin tambien puede usar
     #def request(usuario): solicitud para agregar a la lista de contactos de interes
     #def refuse_request(usario): cada vez que se rechaza un user sumar +1  
-    #def blockUser(user):   chequear con la funcion refuse_request() si la cantidad es >= 5, si ocurre esa condicion bloquear
-    #def unblockUser(usuario): chequear si el usuario esta bloqueado con usuario.isBlocked() , si ocurre esa condicionluego desbloquearlo
+    #def blockUser(user): chequear con la funcion refuse_request() si la cantidad es >= 5, si ocurre esa condicion bloquear
+    #def unblockUser(usuario): chequear si el usuario esta bloqueado con usuario.isBlocked() , si es True desbloquearlo
     #def confirmEvent(): agregar un valor al evento donde confirma para agrandar la cantidad de participanted de dicho evento y hacerlo "mas rojo"
     #posible agregar un addAdmin() y kickAdmin()
     pass
