@@ -1,6 +1,6 @@
 class Home:
     #clase con interfaz una vez iniciada sesion/quiza tengamos que hacer una para admin tambien para una vez que se hace login
-    #def contactoDeInteres():  def accept_request(usuario): teoricamente son lo mismo, agregar al contacto a la lista de contactos de interes
+    #def contactoDeInteres():  def accept_request(usuario): teoricamente son lo mismo, agregar al contacto a la lista de friends
     #def reportEvent(): solicitud para agregar evento a la listaEventos
     #si es admin tambien puede usar
     #def request(usuario): solicitud para agregar a la lista de contactos de interes
