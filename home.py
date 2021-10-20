@@ -10,4 +10,9 @@ class Home:
     #def unblockUser(usuario): chequear si el usuario esta bloqueado con usuario.isBlocked() , si es True desbloquearlo
     #def confirmEvent(): agregar un valor al evento donde confirma para agrandar la cantidad de participanted de dicho evento y hacerlo "mas rojo"
     #posible agregar un addAdmin() y kickAdmin()
+    def isBlocked(self,usuario):# valor si esta bloqueado o no
+        for i in self.blocked:
+            if usuario == i:
+                return True
+        return False
     pass
