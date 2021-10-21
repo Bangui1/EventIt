@@ -18,12 +18,12 @@ class Admin(Usuario):
         pass
     
     @classmethod
-    def confirmEvent(self, event):
+    def confirmEvent(cls, event):
         #chequear en lista de notifs x los eventos y aceptar para que aparezca para los sensores - quizas se puede armar la lista en orden de mas solicitudes
         pass
     
     @classmethod
-    def denyEvent(self, event):
+    def denyEvent(cls, event):
         pass
 
 class Ciudadano(Usuario):
