@@ -1,10 +1,11 @@
+#ESTO DPS LO CAMBIAMOS X UN MANEJO DE ARCHIVOS
 class datasetANSES:
-  ciudadanos = []
-  
+    ciudadanos = []
+
 class datasetBLOQUEADOS:
-  ciudadanos_bloqueados = []
-  
+    ciudadanos_bloqueados = []
+
 class datasetUSUARIOS:
-  administradores = []
-  ciudadanos_user = []
-  users_totales = administradores + ciudadanos_user
+    administradores = []
+    ciudadanos_user = []
+    users_totales = administradores + ciudadanos_user
