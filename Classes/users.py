@@ -5,6 +5,11 @@ class Usuario(ABC):
         self.username = username
         self.notificaciones = []
         
+class Sensor:
+    def __init__(self, number, zona):
+        self.num = number
+        self.zona = zona
+        
 
 class Admin(Usuario): 
     #no se registra en el sistema, se crea con login y contraseña predeterminada
