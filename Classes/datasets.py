@@ -8,4 +8,5 @@ class datasetBLOQUEADOS:
 class datasetUSUARIOS:
     administradores = []
     ciudadanos_user = []
+    sensores = []
     users_totales = administradores + ciudadanos_user
