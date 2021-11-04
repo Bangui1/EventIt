@@ -34,7 +34,7 @@ class Start:
         while not log:
             username = input('Enter Username: ').rstrip()
             password = input('Enter Password: ')
-            with open('Anses_dataset.csv', 'r') as database:
+            with open('Usuarios_registrados.csv', 'r') as database:
                 for line in database:
                     row = line.strip().split(',')
                     if username == row[0].strip():
@@ -44,3 +44,14 @@ class Start:
                             print('wrong password, please try again.')
                     else:
                         print ('Username Not found')
+
+
+    def Register(self):
+        register = False
+        while not register:
+            cuil = input('Please enter your CUIL: ')
+            with open('dataset_Anses.csv', 'r') as database:
+                for line in database:
+                    row = line.strip().split(',')
+                    if cuil == row[0]:
+                        register = True
