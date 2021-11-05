@@ -1,25 +1,7 @@
-
 from csv import writer
+from Classes.users import Ciudadano, Usuario
 
 class Start:
-    def Login(self):
-        log = False
-        while not log:
-            username = input('Enter Username: ').rstrip()
-            password = input('Enter Password: ')
-            with open('EventIt\\Datasets\\User_database.csv', 'r') as database:
-                for line in database:
-                    row = line.strip().split(',')
-                    if username == row[2].strip():
-                        if password == row[3].strip():
-                            log = True
-                        else:
-                            print('wrong password, please try again.')
-                    else:
-                        print ('Username Not found')
-
-
-   
         
     def checkCuil(self):
         with open('EventIt\\Datasets\\User_database.csv', 'r') as user_database:
@@ -35,9 +17,6 @@ class Start:
                         check_1 = True
                         return cuil
 
-                       
-
-        
     def checkPhoneNumber(self):                                
         with open('EventIt\\Datasets\\User_database.csv', 'r') as user_database:
             check_2 = False
@@ -80,7 +59,6 @@ class Start:
                 check_4 = True
                 return password
                 
-
     def Register(self):
         cuil = Start.checkCuil(self)
         phone_number = Start.checkPhoneNumber(self)
@@ -90,14 +68,28 @@ class Start:
         phone_number
         username
         password
-        with open('EventIt\\Datasets\\User_database.csv', 'r', newline = '') as database:
-            for line in database:
-                with open('EventIt\\Datasets\\User_database.csv', 'a') as user_database:
-                    user_data = [cuil, phone_number, username, password]
-                    data_writer = writer(user_database, lineterminator='\r')
-                    data_writer.writerow(user_data)
-                    break
+        with open('EventIt\\Datasets\\User_database.csv', 'a', newline='') as user_database:
+            user = Ciudadano(username, password, cuil, phone_number) #para poder acceder a notifs, funciones, etc
+            user_data = [user.cuil, user.phone_number, user.username, user.password, user]
+            data_writer = writer(user_database, lineterminator='\r')
+            data_writer.writerow(user_data)
 
+    def Login(self):
+        log = False
+        while not log:
+            username = input('Enter Username: ').rstrip()
+            password = input('Enter Password: ')
+            with open('EventIt\\Datasets\\User_database.csv', 'r') as database:
+                for line in database:
+                    row = line.strip().split(',')
+                    if username == row[2].strip():
+                        if password == row[3].strip():
+                            log = True
+                        else:
+                            print('wrong password, please try again.')
+                    else:
+                        print('Username Not found')
+        #algo que te mande a interfaz
 
     def LoginAdmin(self):
         log = False
@@ -114,6 +106,7 @@ class Start:
                             print('wrong password, please try again.')
                     else:
                         print('Username Not found')
+        #algo que te mande a interfaz admin
 
 
     def LoginSensor(self):
@@ -127,3 +120,4 @@ class Start:
                         log = True
                     else:
                         print('Sensor Not found')
+        #algo que te mande a interfaz sensor

@@ -1,3 +1,6 @@
+from Classes.users import Admin
+from csv import writer
+
 class Home: #cada funcion podria vincularse con funciones dentro de las clases de usuario (admin y ciudadano) para no darle toda la responsabilidad a Home - tamb ayuda con el tema de checkear si es o no admin
     
     #clase con interfaz una vez iniciada sesion/quiza tengamos que hacer una para admin tambien para una vez que se hace login
@@ -18,3 +21,96 @@ class Home: #cada funcion podria vincularse con funciones dentro de las clases d
 #               return True
 #       return False
     pass
+
+class InterfazUser:
+    pass
+
+class InterfazAdmin:
+    def checkIfBlocked(username):
+        with open('EventIt\\Datasets\\User_database.csv', 'a', newline='') as user_database:
+            for line in user_database:
+                row = line.strip().split(',')
+                if username == row[2].strip():
+                    return row[5].blockedState
+                else:
+                    print('Username Not found')
+
+    
+    def blockUser():
+        username = input("Ingresar nombre del usuario al cual quiere bloquear: ")
+        with open('EventIt\\Datasets\\User_database.csv', 'a', newline='') as user_database:
+            for line in user_database:
+                row = line.strip().split(',')
+                if username == row[2].strip():
+                    if InterfazAdmin.checkIfBlocked(username) == False:
+                        row[5].blockedState = True
+                    else:
+                        print("User already blocked!")
+                else:
+                    print('Username Not found')
+
+    def unblockUser():
+        username = input("Ingresar nombre del usuario al cual quiere bloquear: ")
+        with open('EventIt\\Datasets\\User_database.csv', 'a', newline='') as user_database:
+            for line in user_database:
+                row = line.strip().split(',')
+                if username == row[2].strip():
+                    if InterfazAdmin.checkIfBlocked(username):
+                        row[5].blockedState = False
+                    else:
+                        print("User is not blocked!")
+                else:
+                    print('Username Not found')
+    
+    def CheckAdmin():
+        with open('EventIt\\Datasets\\Admin_database.csv', 'r') as user_database:
+            check = False
+            while check == False:
+                username = input('Enter your username: ')
+                for line in user_database:
+                    row = line.strip().split(',')
+                    if username == row[2].strip():
+                        print("Username already exist, try another one")
+                        InterfazAdmin.checkAdmin()
+                    else:
+                        check = True
+                        return username
+    
+    def CheckPassword(self):
+        check = False
+        while check == False:
+            password = input('Enter your password: ')
+            confirm_password = input('Please re-enter your password:')
+            if password != confirm_password:
+                print('Passwords do not match, please try again.')
+                InterfazAdmin.checkPassword(self)
+            else:
+                check = True
+                return password
+
+    def addAdmin():
+        username = InterfazAdmin.CheckAdmin()
+        password = InterfazAdmin.CheckPassword()
+        with open('EventIt\\Datasets\\Admin_database.csv', 'a', newline='') as adm_database:
+            admin = Admin(username, password)
+            adm_data = [admin.username, admin.password]
+            data_writer = writer(adm_database, lineterminator='\r')
+            data_writer.writerow(adm_data)
+
+    def banAdmin():
+        user = input("Ingresar usuario del admin que quiere kickear: ")
+        with open('EventIt\\Datasets\\Admin_database.csv', 'a', newline='') as adm_database:
+            data_writer = writer(adm_database, lineterminator='\r')
+            for line in adm_database:
+                row = line.strip().split(',')
+                if user == row[0].strip():
+                    data_writer.writerow(row) #se supone que lo deberia borrar
+                else:
+                    print('Admin Not found')
+
+
+
+
+
+
+#interfaz sensor puede ser un mapa

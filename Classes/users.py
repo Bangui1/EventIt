@@ -3,7 +3,7 @@ class Usuario(ABC):
     def __init__(self, username, password):
         self.password = password
         self.username = username
-        self.notificaciones = []
+        self.notificaciones = [] #para los admins quizas se puede usar la primer linea del csv como lista de notifs, creando tambien una classe de notifs
         
 class Sensor:
     def __init__(self, number, zona):
