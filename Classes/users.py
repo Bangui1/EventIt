@@ -1,4 +1,4 @@
-from abc import ABC, abstractmethod, classmethod
+from abc import ABC, abstractmethod
 class Usuario(ABC):
     def __init__(self, username, password):
         self.password = password
@@ -34,13 +34,16 @@ class Admin(Usuario):
 class Ciudadano(Usuario):
     #se registra en el sistema mediante Register() en Home
     def __init__(self, username, password, CUIL, telefono):
-        Usuario.__init__(username, password)
+        Usuario.__init__(self, username, password)
         self.cuil = CUIL
         self.telefono = telefono
         self.friends = []
         self.NoOfTimesRejected = 0
         self.pendingRequests = []
         self.BlockedState = False
+    
+    def __repr__(self):
+        return f"{self.username} - Tel: {self.telefono} - CUIL: {self.cuil}"
         
     def requestFriend(self, CUIL):
         #enviar notificacion y agregar a pendingRequests del otro usuario con opcion de aceptar o denegar

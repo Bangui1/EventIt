@@ -27,7 +27,7 @@ class InterfazUser:
 
 class InterfazAdmin:
     def checkIfBlocked(username):
-        with open('EventIt\\Datasets\\User_database.csv', 'a', newline='') as user_database:
+        with open('Datasets\\User_database.csv', 'a', newline='') as user_database:
             for line in user_database:
                 row = line.strip().split(',')
                 if username == row[2].strip():
@@ -36,9 +36,9 @@ class InterfazAdmin:
                     print('Username Not found')
 
     
-    def blockUser():
+    def blockUser(self):
         username = input("Ingresar nombre del usuario al cual quiere bloquear: ")
-        with open('EventIt\\Datasets\\User_database.csv', 'a', newline='') as user_database:
+        with open('Datasets\\User_database.csv', 'a', newline='') as user_database:
             for line in user_database:
                 row = line.strip().split(',')
                 if username == row[2].strip():
@@ -49,9 +49,9 @@ class InterfazAdmin:
                 else:
                     print('Username Not found')
 
-    def unblockUser():
+    def unblockUser(self):
         username = input("Ingresar nombre del usuario al cual quiere bloquear: ")
-        with open('EventIt\\Datasets\\User_database.csv', 'a', newline='') as user_database:
+        with open('Datasets\\User_database.csv', 'a', newline='') as user_database:
             for line in user_database:
                 row = line.strip().split(',')
                 if username == row[2].strip():
@@ -62,8 +62,8 @@ class InterfazAdmin:
                 else:
                     print('Username Not found')
     
-    def CheckAdmin():
-        with open('EventIt\\Datasets\\Admin_database.csv', 'r') as user_database:
+    def CheckAdmin(self):
+        with open('Datasets\\Admin_dataset.csv', 'r') as user_database:
             check = False
             while check == False:
                 username = input('Enter your username: ')
@@ -88,18 +88,18 @@ class InterfazAdmin:
                 check = True
                 return password
 
-    def addAdmin():
+    def addAdmin(self):
         username = InterfazAdmin.CheckAdmin()
         password = InterfazAdmin.CheckPassword()
-        with open('EventIt\\Datasets\\Admin_database.csv', 'a', newline='') as adm_database:
+        with open('Datasets\\Admin_dataset.csv', 'a', newline='') as adm_database:
             admin = Admin(username, password)
             adm_data = [admin.username, admin.password]
             data_writer = writer(adm_database, lineterminator='\r')
             data_writer.writerow(adm_data)
 
-    def banAdmin():
+    def banAdmin(self):
         user = input("Ingresar usuario del admin que quiere kickear: ")
-        with open('EventIt\\Datasets\\Admin_database.csv', 'a', newline='') as adm_database:
+        with open('Datasets\\Admin_dataset.csv', 'a', newline='') as adm_database:
             data_writer = writer(adm_database, lineterminator='\r')
             for line in adm_database:
                 row = line.strip().split(',')

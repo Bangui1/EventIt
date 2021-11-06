@@ -4,7 +4,7 @@ from Classes.users import Ciudadano, Usuario
 class Start:
         
     def checkCuil(self):
-        with open('EventIt\\Datasets\\User_database.csv', 'r') as user_database:
+        with open('Datasets\\User_database.csv', 'r') as user_database:
             check_1 = False
             while check_1 == False:
                 cuil = input('Please enter your CUIL: ')
@@ -18,7 +18,7 @@ class Start:
                         return cuil
 
     def checkPhoneNumber(self):                                
-        with open('EventIt\\Datasets\\User_database.csv', 'r') as user_database:
+        with open('Datasets\\User_database.csv', 'r') as user_database:
             check_2 = False
             while check_2 == False:
                 phone_number = input('Please enter your phone number: ')    
@@ -33,7 +33,7 @@ class Start:
                     
 
     def checkUsername(self):     
-        with open('EventIt\\Datasets\\User_database.csv', 'r') as user_database:
+        with open('Datasets\\User_database.csv', 'r') as user_database:
             check_3 = False
             while check_3 == False:
                 username = input('Enter your username: ')
@@ -64,13 +64,9 @@ class Start:
         phone_number = Start.checkPhoneNumber(self)
         username = Start.checkUsername(self)
         password = Start.checkPassword(self) 
-        cuil
-        phone_number
-        username
-        password
-        with open('EventIt\\Datasets\\User_database.csv', 'a', newline='') as user_database:
+        with open('Datasets\\User_database.csv', 'a', newline='') as user_database:
             user = Ciudadano(username, password, cuil, phone_number) #para poder acceder a notifs, funciones, etc
-            user_data = [user.cuil, user.phone_number, user.username, user.password, user]
+            user_data = [cuil, phone_number, user.username, user.password, user]
             data_writer = writer(user_database, lineterminator='\r')
             data_writer.writerow(user_data)
 
@@ -79,7 +75,7 @@ class Start:
         while not log:
             username = input('Enter Username: ').rstrip()
             password = input('Enter Password: ')
-            with open('EventIt\\Datasets\\User_database.csv', 'r') as database:
+            with open('Datasets\\User_database.csv', 'r') as database:
                 for line in database:
                     row = line.strip().split(',')
                     if username == row[2].strip():
@@ -96,7 +92,7 @@ class Start:
         while not log:
             username = input('Enter username: ').rstrip()
             password = input('Enter password: ')
-            with open('EventIt\\Datasets\\User_database.csv', 'r') as database:
+            with open('Datasets\\User_database.csv', 'r') as database:
                 for line in database:
                     row = line.strip().split(',')
                     if username == row[2].strip():
@@ -113,7 +109,7 @@ class Start:
         log = False
         while not log:
             username = input('Enter Area Code: ').rstrip()
-            with open('EventIt\\Datasets\\User_database.csv', 'r') as database:
+            with open('Datasets\\User_database.csv', 'r') as database:
                 for line in database:
                     row = line.strip().split(',')
                     if username == row[0].strip():
