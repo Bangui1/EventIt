@@ -2,7 +2,6 @@ from csv import writer
 from Classes.users import Ciudadano, Usuario
 
 class Start:
-        
     def checkCuil(self):
         with open('Datasets\\User_database.csv', 'r') as user_database:
             check_1 = False
