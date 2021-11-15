@@ -106,13 +106,6 @@ class Start:
                 except:
                     print('Username and password do not match. Please try again.')
                     pass
-                    # if username == row[2].strip():
-                    #     if password == row[3].strip():
-                    #         log = True
-                    #     else:
-                    #         print('wrong password, please try again.')
-                    # else:
-                    #     print('Username Not found')
         #algo que te mande a interfaz
 
     def LoginAdmin(self):
