@@ -4,59 +4,76 @@ from Classes.users import Ciudadano, Usuario
 class Start:
         
     def checkCuil(self):
-        with open('Datasets\\User_database.csv', 'r') as user_database:
-            check_1 = False
-            while check_1 == False:
-                cuil = input('Please enter your CUIL: ')
-                for i in user_database:
-                    row = i.strip().split(',')
-                    if cuil == row[0].strip():
-                        print ("Cuil already exist, try another one")
-                        Start.checkCuil(self)
-                    else: 
-                        check_1 = True
-                        return cuil
+        check = False
+        while check == False:
+            cuil = input('Please enter your CUIL: ')
+            with open('Datasets\\dataset_Anses.csv', 'r') as anses_database:
+                try:
+                    for line in anses_database:
+                        if line == cuil:
+                            with open('Datasets\\User_database.csv', 'r') as user_database:
+                                    for i in user_database:
+                                        row = i.strip().split(',')
+                                        if cuil == row[0].strip():
+                                            print ("Cuil already exist, try another one")
+                                            raise ValueError
+                                        else: 
+                                            check = True
+                                            return cuil
+                
+                except:
+                    pass
+
+
+
 
     def checkPhoneNumber(self):                                
-        with open('Datasets\\User_database.csv', 'r') as user_database:
-            check_2 = False
-            while check_2 == False:
-                phone_number = input('Please enter your phone number: ')    
-                for x in user_database:
-                    row = x.strip().split(',')
-                    if phone_number == row[1].strip():
-                        print ("phone number already exist, try another one")
-                        Start.checkPhoneNumber(self)
-                    else: 
-                        check_2 = True
-                        return phone_number
+        check = False
+        while check == False:
+            try:
+                with open('Datasets\\User_database.csv', 'r') as user_database:
+                    phone_number = input('Please enter your phone number: ')    
+                    for line in user_database:
+                        row = line.strip().split(',')
+                        if phone_number == row[1].strip():
+                            print ("phone number already exist, try another one")
+                            raise ValueError
+                        else: 
+                            check = True
+                            return phone_number
+            except:
+                pass
                     
 
     def checkUsername(self):     
-        with open('Datasets\\User_database.csv', 'r') as user_database:
-            check_3 = False
-            while check_3 == False:
-                username = input('Enter your username: ')
-                for y in user_database:
-                    row = y.strip().split(',')
-                    if username == row[2].strip():
-                        print ("Username already exist, try another one")
-                        Start.checkUsername(self)
-                    else: 
-                        check_3 = True
-                        return username
-                    
+        check = False
+        while check == False:
+            try:
+                with open('Datasets\\User_database.csv', 'r') as user_database:
+                        username = input('Enter your username: ')
+                        for line in user_database:
+                            row = line.strip().split(',')
+                            if username == row[2].strip():
+                                print ("Username already exist, try another one")
+                                raise ValueError
+                            else: 
+                                check = True
+                                return username
+            except:
+                pass
 
-    def checkPassword(self):      
-        check_4 = False
-        while check_4 == False:
+
+
+    def checkPassword(self):
+        check = False
+        while check == False:
             password = input('Enter your password: ')
             confirm_password = input('Please re-enter your password:')
             if password != confirm_password:
                 print('Passwords do not match, please try again.')
                 Start.checkPassword(self)
             else: 
-                check_4 = True
+                check = True
                 return password
                 
     def Register(self):
@@ -76,15 +93,27 @@ class Start:
             username = input('Enter Username: ').rstrip()
             password = input('Enter Password: ')
             with open('Datasets\\User_database.csv', 'r') as database:
-                for line in database:
-                    row = line.strip().split(',')
-                    if username == row[2].strip():
-                        if password == row[3].strip():
-                            log = True
-                        else:
-                            print('wrong password, please try again.')
+                try:
+                    for line in database:
+                        row = line.strip().split(',')
+                        if username == row[2].strip():
+                                if password == row[3].strip():
+                                    log = True
+
+                    if log:
+                        pass
                     else:
-                        print('Username Not found')
+                        raise ValueError
+                except:
+                    print('Username and password do not match. Please try again.')
+                    pass
+                    # if username == row[2].strip():
+                    #     if password == row[3].strip():
+                    #         log = True
+                    #     else:
+                    #         print('wrong password, please try again.')
+                    # else:
+                    #     print('Username Not found')
         #algo que te mande a interfaz
 
     def LoginAdmin(self):
