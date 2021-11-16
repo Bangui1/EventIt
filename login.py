@@ -18,13 +18,9 @@ class Start:
                                             raise ValueError
                                         else: 
                                             check = True
-                                            return cuil
-                
+                                            return cuil                
                 except:
                     pass
-
-
-
 
     def checkPhoneNumber(self):                                
         check = False
@@ -61,8 +57,6 @@ class Start:
             except:
                 pass
 
-
-
     def checkPassword(self):
         check = False
         while check == False:
@@ -98,7 +92,7 @@ class Start:
                         if username == row[2].strip():
                                 if password == row[3].strip():
                                     log = True
-
+                                    #algo que te mande a interfaz
                     if log:
                         pass
                     else:
@@ -106,7 +100,6 @@ class Start:
                 except:
                     print('Username and password do not match. Please try again.')
                     pass
-        #algo que te mande a interfaz
 
     def LoginAdmin(self):
         log = False
@@ -114,27 +107,31 @@ class Start:
             username = input('Enter username: ').rstrip()
             password = input('Enter password: ')
             with open('Datasets\\User_database.csv', 'r') as database:
-                for line in database:
-                    row = line.strip().split(',')
-                    if username == row[2].strip():
-                        if password == row[3].strip():
-                            log = True
-                        else:
-                            print('wrong password, please try again.')
+                try:
+                    for line in database:
+                        row = line.strip().split(',')
+                        if username == row[2].strip():
+                            if password == row[3].strip():
+                                log = True
+                                #algo que te mande a interfaz admin
+                    if log:
+                        pass
                     else:
-                        print('Username Not found')
-        #algo que te mande a interfaz admin
+                        raise ValueError
+                except:
+                    print('Username and password do not match. Please try again.')
+                    pass
 
 
     def LoginSensor(self):
-        log = False
+        log = False #SE PUEDE CAMBIAR PARA MANDAR DIRECTO AL MAPA, VA A SER MUCHO MEJOR
         while not log:
             username = input('Enter Area Code: ').rstrip()
             with open('Datasets\\User_database.csv', 'r') as database:
-                for line in database:
-                    row = line.strip().split(',')
-                    if username == row[0].strip():
-                        log = True
-                    else:
-                        print('Sensor Not found')
-        #algo que te mande a interfaz sensor
+                try:
+                    for line in database:
+                        row = line.strip().split(',')
+                        if username == row[0].strip():
+                            log = True
+                except:
+                    print("Area no disponible")

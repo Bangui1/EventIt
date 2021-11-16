@@ -39,29 +39,43 @@ class InterfazAdmin:
     def blockUser(self):
         username = input("Ingresar nombre del usuario al cual quiere bloquear: ")
         with open('Datasets\\User_database.csv', 'a', newline='') as user_database:
-            for line in user_database:
-                row = line.strip().split(',')
-                if username == row[2].strip():
-                    if InterfazAdmin.checkIfBlocked(username) == False:
-                        row[5].blockedState = True
-                    else:
-                        print("User already blocked!")
+            try:
+                found = False
+                for line in user_database:
+                    row = line.strip().split(',')
+                    if username == row[2].strip():
+                        found = True
+                        if InterfazAdmin.checkIfBlocked(username) == False:
+                            row[5].blockedState = True
+                        else:
+                            print("User already blocked!")
+                if found:
+                    pass
                 else:
-                    print('Username Not found')
+                    raise ValueError
+            except:
+                print('Username Not found')
 
     def unblockUser(self):
         username = input("Ingresar nombre del usuario al cual quiere bloquear: ")
         with open('Datasets\\User_database.csv', 'a', newline='') as user_database:
-            for line in user_database:
-                row = line.strip().split(',')
-                if username == row[2].strip():
-                    if InterfazAdmin.checkIfBlocked(username):
-                        row[5].blockedState = False
-                    else:
-                        print("User is not blocked!")
+            try:
+                found = False
+                for line in user_database:
+                    row = line.strip().split(',')
+                    if username == row[2].strip():
+                        found = True
+                        if InterfazAdmin.checkIfBlocked(username):
+                            row[5].blockedState = False
+                        else:
+                            print("User is not blocked!")
+                if found:
+                    pass
                 else:
-                    print('Username Not found')
-    
+                    raise ValueError
+            except:
+                print("Username Not Found")
+
     def CheckAdmin(self):
         with open('Datasets\\Admin_dataset.csv', 'r') as user_database:
             check = False
@@ -101,12 +115,19 @@ class InterfazAdmin:
         user = input("Ingresar usuario del admin que quiere kickear: ")
         with open('Datasets\\Admin_dataset.csv', 'a', newline='') as adm_database:
             data_writer = writer(adm_database, lineterminator='\r')
-            for line in adm_database:
-                row = line.strip().split(',')
-                if user == row[0].strip():
-                    data_writer.writerow(row) #se supone que lo deberia borrar
+            try:
+                found = False
+                for line in adm_database:
+                    row = line.strip().split(',')
+                    if user == row[0].strip():
+                        found = True
+                        data_writer.writerow(row) #se supone que lo deberia borrar
+                if found:
+                    pass
                 else:
-                    print('Admin Not found')
+                    raise ValueError
+            except:
+                print("Admin not found")
 
 
 
