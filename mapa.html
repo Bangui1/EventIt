@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<head>    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_be80452478694b8ba2653723ccefc1e3 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+            </style>
+        
+</head>
+<body>    
+    
+            <div class="folium-map" id="map_be80452478694b8ba2653723ccefc1e3" ></div>
+        
+</body>
+<script>    
+    
+            var map_be80452478694b8ba2653723ccefc1e3 = L.map(
+                "map_be80452478694b8ba2653723ccefc1e3",
+                {
+                    center: [-36.233913, -60.645759],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 7,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_84171f3b094e4d52b00e95a9ce0e5968 = L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_be80452478694b8ba2653723ccefc1e3);
+        
+    
+            var marker_fd70d6224f9a4b09a8d8835d6bbbda25 = L.marker(
+                [-34.45866, -58.9142],
+                {}
+            ).addTo(map_be80452478694b8ba2653723ccefc1e3);
+        
+    
+        var popup_045a11ba1a66427a817cbc2a4f7a1345 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_ffa6a256bf5149d598a960d87ab9983a = $(`<div id="html_ffa6a256bf5149d598a960d87ab9983a" style="width: 100.0%; height: 100.0%;">Pilar</div>`)[0];
+            popup_045a11ba1a66427a817cbc2a4f7a1345.setContent(html_ffa6a256bf5149d598a960d87ab9983a);
+        
+
+        marker_fd70d6224f9a4b09a8d8835d6bbbda25.bindPopup(popup_045a11ba1a66427a817cbc2a4f7a1345)
+        ;
+
+        
+    
+    
+            var marker_a32a5056d2a942889ac4483b45933ccb = L.marker(
+                [-34.61315, -58.37723],
+                {}
+            ).addTo(map_be80452478694b8ba2653723ccefc1e3);
+        
+    
+        var popup_2292d7fe60b34ad2a8505805a8e300a8 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_db75c179e5a44c738a18e1463265ead7 = $(`<div id="html_db75c179e5a44c738a18e1463265ead7" style="width: 100.0%; height: 100.0%;">Buenos Aires</div>`)[0];
+            popup_2292d7fe60b34ad2a8505805a8e300a8.setContent(html_db75c179e5a44c738a18e1463265ead7);
+        
+
+        marker_a32a5056d2a942889ac4483b45933ccb.bindPopup(popup_2292d7fe60b34ad2a8505805a8e300a8)
+        ;
+
+        
+    
+    
+            var marker_320bfcb99c194389829e4a25721bae7b = L.marker(
+                [-34.57028, -59.105],
+                {}
+            ).addTo(map_be80452478694b8ba2653723ccefc1e3);
+        
+    
+        var popup_90accea0d6324b609e4f98ee319d0a8f = L.popup({"maxWidth": "100%"});
+
+        
+            var html_c56030c2e8844bd3bbcbb5e42f19bdf0 = $(`<div id="html_c56030c2e8844bd3bbcbb5e42f19bdf0" style="width: 100.0%; height: 100.0%;">Lujan</div>`)[0];
+            popup_90accea0d6324b609e4f98ee319d0a8f.setContent(html_c56030c2e8844bd3bbcbb5e42f19bdf0);
+        
+
+        marker_320bfcb99c194389829e4a25721bae7b.bindPopup(popup_90accea0d6324b609e4f98ee319d0a8f)
+        ;
+
+        
+    
+</script>
