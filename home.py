@@ -141,27 +141,41 @@ class InterfazAdmin:
             for line in rqts:
                 row = line.strip().split(",")
                 print("Eventos a ser aceptados:\n")
-                print("{i}.\t{row}")
+                print(f"{i}.\t{row}")
             try:
-                with open('Datasets\\Events_database.csv', 'a', newline='') as events:
-                    acceptee = input("Número de evento que quiere aceptar: ")
-                    acc = int(acceptee)
-                    num = 0
-                    for line in events:
-                        row2 = line.strip().split(",")
-                        if acc == num:
-                            writer_events = writer(events, lineterminator="\r")
-                            writer_events.writerow()
-                            otro = 0
-                            for line in rqts:
-                                if otro == acc:
-                                    writer_rqts = writer(rqts, lineterminator='\r')
-                                    writer_rqts.writerow("")  # no se si lo borra  
-                                otro += 1    
-                        num += 1
+                acceptee = input("Número del evento que quiere aceptar: ")
+                acc = int(acceptee)
+                num = 0
+                for line in rqts:
+                    row2 = line.strip().split()
+                    if num == acc:
+                        writer_rqts = writer(rqts, lineterminator="\r")
+                        writer_rqts.writerow(line)
+                    num += 1
+                    with open('Datasets\\Events_database.csv', 'a', newline='') as events:
+                        writer_eventos = writer(events, lineterminator="\r")
+                        writer_eventos.writerow(row2)
             except:
-                print("número fuera de rango") #para cambiar - chequear primero events_requests y sacar la row de ahi -> dps ir a database y cambiar
-                        
+                print("número fuera de rango") 
+                    
+    def denyEventRequest(self):
+        with open('Datasets\\Events_requests.csv', 'a', newline='') as rqts:
+            i = 0
+            for line in rqts:
+                row = line.strip().split(",")
+                print("Eventos a ser aceptados:\n")
+                print(f"{i}.\t{row}")
+            try:
+                denied = input("Número del evento que quiere aceptar: ")
+                den = int(denied)
+                num = 0
+                for line in rqts:
+                    row2 = line.strip().split()
+                    if num == den:
+                        writer_rqts = writer(rqts, lineterminator="\r")
+                        writer_rqts.writerow(line)
+            except:
+                print("número fuera de rango")
         
 
 
