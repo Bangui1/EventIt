@@ -58,7 +58,8 @@ def seleccionarTiposEvent():
 def getZone():
     with open('Datasets\\CurrentUser.csv', 'r', newline='') as user:
         for line in user:
-            cuil = line
+            row = line.strip().split(",")
+            cuil = row[0]
         with open('Datasets\\dataset_Anses.csv', 'r', newline='') as user_data:
             for line in user_data:
                 row = line.strip().split(",")
@@ -69,17 +70,11 @@ def requestEvent():
     tipo = seleccionarTiposEvent()
     zona = getZone()
     gente = addPeople()
+    info = input("Describir el evento: ")
     with open('Datasets\\Event_requests.csv', 'a', newline='') as reqs:
-        event_data = [tipo, zona, gente]
+        event_data = [tipo, zona, info, gente]
         data_writer = writer(reqs, lineterminator='\r')
         data_writer.writerow(event_data)
     
         
-class sensor:
-    # def __init__(self):
-    #     self.listaSensores = [] #esto podria ir en el login 
-   
-    def getInfo(self,event): 
-        for i in self.listaSensores:
-            if i == event:
-                return event.getType()
+
