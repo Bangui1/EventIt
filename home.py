@@ -148,7 +148,7 @@ class InterfazAdmin:
                     acc = int(acceptee)
                     num = 0
                     for line in events:
-                        row = line.strip().split(",")
+                        row2 = line.strip().split(",")
                         if acc == num:
                             writer_events = writer(events, lineterminator="\r")
                             writer_events.writerow()
@@ -160,7 +160,7 @@ class InterfazAdmin:
                                 otro += 1    
                         num += 1
             except:
-                print("número fuera de rango")
+                print("número fuera de rango") #para cambiar - chequear primero events_requests y sacar la row de ahi -> dps ir a database y cambiar
                         
         
 
