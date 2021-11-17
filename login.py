@@ -91,6 +91,9 @@ class Start:
                         row = line.strip().split(',')
                         if username == row[2].strip():
                                 if password == row[3].strip():
+                                    with open('Datasets\\CurrentUser.csv', 'w') as user:
+                                        data_writer = writer(user, lineterminator = '\r')
+                                        data_writer.writerow(row)
                                     log = True
                                     #algo que te mande a interfaz
                     if log:
