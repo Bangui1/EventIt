@@ -28,12 +28,18 @@ class InterfazUser:
 class InterfazAdmin:
     def checkIfBlocked(username):
         with open('Datasets\\User_database.csv', 'a', newline='') as user_database:
-            for line in user_database:
-                row = line.strip().split(',')
-                if username == row[2].strip():
-                    return row[5].blockedState
+            try:
+                found = False
+                for line in user_database:
+                    row = line.strip().split(',')
+                    if username == row[2].strip():
+                        return row[5].blockedState
+                if found:
+                    pass
                 else:
-                    print('Username Not found')
+                    raise ValueError
+            except:
+                print("User not found.")
 
     
     def blockUser(self):
@@ -128,6 +134,35 @@ class InterfazAdmin:
                     raise ValueError
             except:
                 print("Admin not found")
+                
+    def acceptEventRequest(self):
+        with open('Datasets\\Events_requests.csv', 'a', newline='') as rqts:
+            i = 0
+            for line in rqts:
+                row = line.strip().split(",")
+                print("Eventos a ser aceptados:\n")
+                print("{i}.\t{row}")
+            try:
+                with open('Datasets\\Events_database.csv', 'a', newline='') as events:
+                    acceptee = input("Número de evento que quiere aceptar: ")
+                    acc = int(acceptee)
+                    num = 0
+                    for line in events:
+                        row = line.strip().split(",")
+                        if acc == num:
+                            writer_events = writer(events, lineterminator="\r")
+                            writer_events.writerow()
+                            otro = 0
+                            for line in rqts:
+                                if otro == acc:
+                                    writer_rqts = writer(rqts, lineterminator='\r')
+                                    writer_rqts.writerow("")  # no se si lo borra  
+                                otro += 1    
+                        num += 1
+            except:
+                print("número fuera de rango")
+                        
+        
 
 
 
