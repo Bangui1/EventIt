@@ -27,7 +27,7 @@ class InterfazUser:
 
 class InterfazAdmin:
     def checkIfBlocked(username):
-        with open('Datasets\\User_database.csv', 'a', newline='') as user_database:
+        with open('Datasets\\User_database.csv', 'r', newline='') as user_database:
             try:
                 found = False
                 for line in user_database:
@@ -44,7 +44,7 @@ class InterfazAdmin:
     
     def blockUser(self):
         username = input("Ingresar nombre del usuario al cual quiere bloquear: ")
-        with open('Datasets\\User_database.csv', 'a', newline='') as user_database:
+        with open('Datasets\\User_database.csv', 'r', newline='') as user_database:
             try:
                 found = False
                 for line in user_database:
@@ -79,7 +79,7 @@ class InterfazAdmin:
                     pass
                 else:
                     raise ValueError
-            except:
+            except ValueError:
                 print("Username Not Found")
 
     def CheckAdmin(self):
@@ -132,11 +132,11 @@ class InterfazAdmin:
                     pass
                 else:
                     raise ValueError
-            except:
+            except ValueError:
                 print("Admin not found")
                 
     def acceptEventRequest(self):
-        with open('Datasets\\Events_requests.csv', 'a', newline='') as rqts:
+        with open('Datasets\\Events_requests.csv', 'r', newline='') as rqts:
             i = 0
             for line in rqts:
                 row = line.strip().split(",")
@@ -163,10 +163,10 @@ class InterfazAdmin:
             i = 0
             for line in rqts:
                 row = line.strip().split(",")
-                print("Eventos a ser aceptados:\n")
+                print("Eventos a ser rechazados:\n")
                 print(f"{i}.\t{row}")
             try:
-                denied = input("Número del evento que quiere aceptar: ")
+                denied = input("Número del evento que quiere rechazar: ")
                 den = int(denied)
                 num = 0
                 for line in rqts:
@@ -178,6 +178,7 @@ class InterfazAdmin:
                 print("número fuera de rango")
         
 
+intAdmin = InterfazAdmin()
 
 
 

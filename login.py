@@ -1,5 +1,6 @@
 from csv import writer
 from Classes.users import Ciudadano, Usuario
+from admin_menu import AdminMenu, menu_admin
 
 class Start:
     def checkCuil(self):
@@ -19,7 +20,7 @@ class Start:
                                         else: 
                                             check = True
                                             return cuil                
-                except:
+                except ValueError:
                     pass
 
     def checkPhoneNumber(self):                                
@@ -36,7 +37,7 @@ class Start:
                         else: 
                             check = True
                             return phone_number
-            except:
+            except ValueError:
                 pass
                     
 
@@ -54,7 +55,7 @@ class Start:
                             else: 
                                 check = True
                                 return username
-            except:
+            except ValueError:
                 pass
 
     def checkPassword(self):
@@ -100,7 +101,7 @@ class Start:
                         pass
                     else:
                         raise ValueError
-                except:
+                except ValueError:
                     print('Username and password do not match. Please try again.')
                     pass
 
@@ -109,21 +110,19 @@ class Start:
         while not log:
             username = input('Enter username: ').rstrip()
             password = input('Enter password: ')
-            with open('Datasets\\User_database.csv', 'r') as database:
+            with open('Datasets\\Admin_dataset.csv', 'r') as database:
                 try:
                     for line in database:
                         row = line.strip().split(',')
-                        if username == row[2].strip():
-                            if password == row[3].strip():
+                        if username == row[0].strip():
+                            if password == row[1].strip():
+                                menu_admin.Admin_mainMenu()
                                 log = True
                                 #algo que te mande a interfaz admin
-                    if log:
-                        pass
-                    else:
+                    if not log:
                         raise ValueError
-                except:
+                except ValueError:
                     print('Username and password do not match. Please try again.')
-                    pass
 
 
     def LoginSensor(self):
