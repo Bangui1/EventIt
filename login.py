@@ -160,3 +160,4 @@ class Start:
 
         mapa.save('mapa.html')
         webbrowser.open('mapa.html')
+menuLogin = Start()
