@@ -27,18 +27,24 @@ class InterfazUser:
 
 class InterfazAdmin:
     def checkIfBlocked(username):
-        with open('Datasets\\User_database.csv', 'a', newline='') as user_database:
-            for line in user_database:
-                row = line.strip().split(',')
-                if username == row[2].strip():
-                    return row[5].blockedState
+        with open('Datasets\\User_database.csv', 'r', newline='') as user_database:
+            try:
+                found = False
+                for line in user_database:
+                    row = line.strip().split(',')
+                    if username == row[2].strip():
+                        return row[5].blockedState
+                if found:
+                    pass
                 else:
-                    print('Username Not found')
+                    raise ValueError
+            except:
+                print("User not found.")
 
     
     def blockUser(self):
         username = input("Ingresar nombre del usuario al cual quiere bloquear: ")
-        with open('Datasets\\User_database.csv', 'a', newline='') as user_database:
+        with open('Datasets\\User_database.csv', 'r', newline='') as user_database:
             try:
                 found = False
                 for line in user_database:
@@ -73,7 +79,7 @@ class InterfazAdmin:
                     pass
                 else:
                     raise ValueError
-            except:
+            except ValueError:
                 print("Username Not Found")
 
     def CheckAdmin(self):
@@ -83,7 +89,7 @@ class InterfazAdmin:
                 username = input('Enter your username: ')
                 for line in user_database:
                     row = line.strip().split(',')
-                    if username == row[2].strip():
+                    if username == row[0].strip():
                         print("Username already exist, try another one")
                         InterfazAdmin.checkAdmin()
                     else:
@@ -103,8 +109,8 @@ class InterfazAdmin:
                 return password
 
     def addAdmin(self):
-        username = InterfazAdmin.CheckAdmin()
-        password = InterfazAdmin.CheckPassword()
+        username = InterfazAdmin.CheckAdmin(self)
+        password = InterfazAdmin.CheckPassword(self)
         with open('Datasets\\Admin_dataset.csv', 'a', newline='') as adm_database:
             admin = Admin(username, password)
             adm_data = [admin.username, admin.password]
@@ -113,22 +119,75 @@ class InterfazAdmin:
 
     def banAdmin(self):
         user = input("Ingresar usuario del admin que quiere kickear: ")
-        with open('Datasets\\Admin_dataset.csv', 'a', newline='') as adm_database:
-            data_writer = writer(adm_database, lineterminator='\r')
+        with open('Datasets\\Admin_dataset.csv', 'r', newline='') as adm_database:
             try:
                 found = False
+                file_list = list()
                 for line in adm_database:
                     row = line.strip().split(',')
-                    if user == row[0].strip():
+                    if row[0] == user:
+                        del(row)
                         found = True
-                        data_writer.writerow(row) #se supone que lo deberia borrar
+                    else:
+                        print(row)
+                        file_list.append(row)
+
+
+                with open('Datasets\\Admin_dataset.csv', 'w', newline= '') as adm_database:
+                    data_writer = writer(adm_database, lineterminator = '\r')
+                    for admin_data in file_list:
+                        data_writer.writerow(admin_data)
                 if found:
                     pass
                 else:
                     raise ValueError
-            except:
+            except ValueError:
                 print("Admin not found")
+                
+    def acceptEventRequest(self):
+        with open('Datasets\\Events_requests.csv', 'r', newline='') as rqts:
+            i = 0
+            for line in rqts:
+                row = line.strip().split(",")
+                print("Eventos a ser aceptados:\n")
+                print(f"{i}.\t{row}")
+            try:
+                acceptee = input("Número del evento que quiere aceptar: ")
+                acc = int(acceptee)
+                num = 0
+                for line in rqts:
+                    row2 = line.strip().split()
+                    if num == acc:
+                        writer_rqts = writer(rqts, lineterminator="\r")
+                        writer_rqts.writerow(line)
+                    num += 1
+                    with open('Datasets\\Events_database.csv', 'a', newline='') as events:
+                        writer_eventos = writer(events, lineterminator="\r")
+                        writer_eventos.writerow(row2)
+            except:
+                print("número fuera de rango") 
+                    
+    def denyEventRequest(self):
+        with open('Datasets\\Events_requests.csv', 'a', newline='') as rqts:
+            i = 0
+            for line in rqts:
+                row = line.strip().split(",")
+                print("Eventos a ser rechazados:\n")
+                print(f"{i}.\t{row}")
+            try:
+                denied = input("Número del evento que quiere rechazar: ")
+                den = int(denied)
+                num = 0
+                for line in rqts:
+                    row2 = line.strip().split()
+                    if num == den:
+                        writer_rqts = writer(rqts, lineterminator="\r")
+                        writer_rqts.writerow(line)
+            except:
+                print("número fuera de rango")
+        
 
+intAdmin = InterfazAdmin()
 
 
 
