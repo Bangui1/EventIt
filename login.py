@@ -9,19 +9,19 @@ class Start:
             cuil = input('Please enter your CUIL: ')
             with open('Datasets\\dataset_Anses.csv', 'r') as anses_database:
                 try:
-                    for line in anses_database:
-                        if line == cuil:
-                            with open('Datasets\\User_database.csv', 'r') as user_database:
-                                    for i in user_database:
-                                        row = i.strip().split(',')
-                                        if cuil == row[0].strip():
-                                            print ("Cuil already exist, try another one")
-                                            raise ValueError
-                                        else: 
-                                            check = True
-                                            return cuil                
+                    with open('Datasets\\User_database.csv', 'r') as user_database:
+                        for i in user_database:
+                            row = i.strip().split(',')
+                            if cuil == row[0].strip():
+                                print ("Cuil already exist, try another one")
+                                raise ValueError
+                            else: 
+                                check = True
+                                return cuil                
                 except ValueError:
                     pass
+
+
 
     def checkPhoneNumber(self):                                
         check = False
@@ -77,9 +77,12 @@ class Start:
         password = Start.checkPassword(self) 
         with open('Datasets\\User_database.csv', 'a', newline='') as user_database:
             user = Ciudadano(username, password, cuil, phone_number) #para poder acceder a notifs, funciones, etc
-            user_data = [cuil, phone_number, user.username, user.password, user]
+            user_data = [cuil, phone_number, user.username, user.password]
             data_writer = writer(user_database, lineterminator='\r')
             data_writer.writerow(user_data)
+        with open(f'Users\\{cuil}.csv', 'w', newline = '') as user_csv:
+            user_writer = writer(user_csv, lineterminator = '\r')
+            user_writer.writerow(user_data)
 
     def Login(self):
         log = False
@@ -92,9 +95,16 @@ class Start:
                         row = line.strip().split(',')
                         if username == row[2].strip():
                                 if password == row[3].strip():
+                                    cuil = row[0]
+                                    with open(f'Users\\{cuil}.csv', 'r') as user_data:
+                                        copied_data = list()
+                                        for line in user_data:
+                                            row = line.strip().split(',')
+                                            copied_data.append(row)
                                     with open('Datasets\\CurrentUser.csv', 'w') as user:
                                         data_writer = writer(user, lineterminator = '\r')
-                                        data_writer.writerow(row)
+                                        for data in copied_data:    
+                                            data_writer.writerow(data)
                                     log = True
                                     #algo que te mande a interfaz
                     if log:
