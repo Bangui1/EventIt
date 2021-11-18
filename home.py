@@ -109,8 +109,8 @@ class InterfazAdmin:
                 return password
 
     def addAdmin(self):
-        username = InterfazAdmin.CheckAdmin()
-        password = InterfazAdmin.CheckPassword()
+        username = InterfazAdmin.CheckAdmin(self)
+        password = InterfazAdmin.CheckPassword(self)
         with open('Datasets\\Admin_dataset.csv', 'a', newline='') as adm_database:
             admin = Admin(username, password)
             adm_data = [admin.username, admin.password]
