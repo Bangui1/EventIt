@@ -6,8 +6,8 @@ if __name__ == '__main__':
 
     sys = Start()
     #sys.Register()
-    #sys.Login()
-    sys.LoginAdmin()
+    sys.Login()
+    #sys.LoginAdmin()
 
     #intAdm = InterfazAdmin()
     #intAdm.blockUser()

@@ -129,9 +129,7 @@ class InterfazAdmin:
                         del(row)
                         found = True
                     else:
-                        print(row)
                         file_list.append(row)
-
 
                 with open('Datasets\\Admin_dataset.csv', 'w', newline= '') as adm_database:
                     data_writer = writer(adm_database, lineterminator = '\r')
@@ -143,7 +141,8 @@ class InterfazAdmin:
                     raise ValueError
             except ValueError:
                 print("Admin not found")
-                
+
+
     def acceptEventRequest(self):
         with open('Datasets\\Events_requests.csv', 'r', newline='') as rqts:
             i = 0

@@ -57,3 +57,4 @@ class InterfazUser:
     def reportEvent(self):
         return requestEvent()
     
+intUser = InterfazUser()

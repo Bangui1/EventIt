@@ -41,4 +41,3 @@ class sensor:
         listaParaCheck = self.listaParaPicos
         if value > listaParaCheck[0]:
             print(f"HAY UN NUEVO PICO DE {value} PERSONAS")
-    
