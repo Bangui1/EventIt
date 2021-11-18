@@ -10,19 +10,19 @@ class Start:
         check = False
         while check == False:
             cuil = input('Please enter your CUIL: ')
-            with open('Datasets\\dataset_Anses.csv', 'r') as anses_database:
-                try:
-                    with open('Datasets\\User_database.csv', 'r') as user_database:
-                        for i in user_database:
-                            row = i.strip().split(',')
-                            if cuil == row[0].strip():
-                                print ("Cuil already exist, try another one")
-                                raise ValueError
-                            else: 
-                                check = True
-                                return cuil                
-                except ValueError:
-                    pass
+            try:
+                #falta que chequee el anses database
+                with open('Datasets\\User_database.csv', 'r') as user_database:
+                    for i in user_database:
+                        row = i.strip().split(',')
+                        if cuil == row[0]:
+                            print ("Cuil already exist, try another one")
+                            raise ValueError
+                check = True
+                return cuil
+
+            except ValueError:
+                pass
 
 
 
@@ -86,6 +86,8 @@ class Start:
         with open(f'Users\\{cuil}.csv', 'w', newline = '') as user_csv:
             user_writer = writer(user_csv, lineterminator = '\r')
             user_writer.writerow(user_data)
+            friend_list = ['Friends']
+            user_writer.writerow(friend_list)
 
     def Login(self):
         log = False

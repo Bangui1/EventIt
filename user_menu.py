@@ -11,6 +11,8 @@ class UserMenu:
                 menu_input = input('Enter a menu number: ')
                 if menu_input == '1':
                     pass #def User_EventMenu
+                if menu_input == '2':
+                    pass
             except ValueError:
                 pass
 
