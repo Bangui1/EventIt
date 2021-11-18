@@ -17,12 +17,12 @@ def addPeople():
         people = []
         i = 0
         while i in range(cant):
-            user = input("Ingresar usuario que forme parte del evento: ")
+            user = input("Ingresar CUIL o telefono de usuario que forme parte del evento: ")
             try:
                 found = False
                 for line in user_database:
                     row = line.strip().split(',')
-                    if user == row[2]:
+                    if user == row[0] or row[1]:
                         people.append(user)
                         found = True
                         i += 1
