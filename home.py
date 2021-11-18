@@ -89,7 +89,7 @@ class InterfazAdmin:
                 username = input('Enter your username: ')
                 for line in user_database:
                     row = line.strip().split(',')
-                    if username == row[2].strip():
+                    if username == row[0].strip():
                         print("Username already exist, try another one")
                         InterfazAdmin.checkAdmin()
                     else:
@@ -119,15 +119,24 @@ class InterfazAdmin:
 
     def banAdmin(self):
         user = input("Ingresar usuario del admin que quiere kickear: ")
-        with open('Datasets\\Admin_dataset.csv', 'a', newline='') as adm_database:
-            data_writer = writer(adm_database, lineterminator='\r')
+        with open('Datasets\\Admin_dataset.csv', 'r', newline='') as adm_database:
             try:
                 found = False
+                file_list = list()
                 for line in adm_database:
                     row = line.strip().split(',')
-                    if user == row[0].strip():
+                    if row[0] == user:
+                        del(row)
                         found = True
-                        data_writer.writerow(row) #se supone que lo deberia borrar
+                    else:
+                        print(row)
+                        file_list.append(row)
+
+
+                with open('Datasets\\Admin_dataset.csv', 'w', newline= '') as adm_database:
+                    data_writer = writer(adm_database, lineterminator = '\r')
+                    for admin_data in file_list:
+                        data_writer.writerow(admin_data)
                 if found:
                     pass
                 else:
