@@ -24,7 +24,27 @@ def enter_map():
     mapaBsAs.save('mapa.html')
     webbrowser.open('mapa.html')
 
-
+def seleccionarZona():
+    with open('Datasets\\Zone_markers.csv', 'r', newline='') as tipos:
+        i = 0
+        for line in tipos:
+            if i != 0:
+                row = line.strip().split(",")
+                print(f"{i}. {row[0]}")
+            i += 1
+    try:
+        with open('Datasets\\Zone_markers.csv', 'r', newline='') as tipos: 
+            seleccion = input("\nNúmero de la zona que quiere elegir: ")
+            sel = int(seleccion)
+            stop = 0
+            for line in tipos:
+                row = line.strip().split(",")
+                if stop == sel:
+                    return row[0]
+                stop += 1
+    except:
+        print("debe ingresar un número que este dentro del rango")
+        seleccionarZona()
 
 
 # class mapa:

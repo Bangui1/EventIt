@@ -42,18 +42,19 @@ def seleccionarTiposEvent():
             row = line.strip().split(",")
             print(f"{i}. {row}")
             i += 1
-        try:
+    try:
+        with open('Datasets\\Event_types.csv', 'r', newline = '') as tipos:
             seleccion = input("\nNúmero del tipo de evento que quiere elegir: ")
             sel = int(seleccion)
             stop = 0
             for line in tipos:
-                row = line.strip().split(",")
+                row2 = line.strip().split(",")
                 if stop == sel:
-                    return row
+                    return row2[0]
                 stop += 1
-        except:
-            print("debe ingresar un número que este dentro del rango")
-            seleccionarTiposEvent()
+    except:
+        print("debe ingresar un número que este dentro del rango")
+        seleccionarTiposEvent()
 
 def getZone():
     with open('Datasets\\CurrentUser.csv', 'r', newline='') as user:

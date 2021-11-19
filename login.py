@@ -1,10 +1,12 @@
 from csv import writer
 from Classes.users import Ciudadano, Usuario
-from Classes.map import enter_map
+from Classes.map import enter_map, seleccionarZona
 from menu_admin import AdminMenu, menu_admin
 import folium, pandas, webbrowser
 from home_admins import intAdmin
-
+from Classes.event import seleccionarTiposEvent
+from Classes.sensor import Sensor
+from menu_sensor import senMenu
 class Start:
     def checkCuil(self):
         check = False
@@ -158,6 +160,10 @@ class Start:
 
 
     def LoginSensor(self):
-        return enter_map()
-    
+        tipo = seleccionarTiposEvent()
+        zona = seleccionarZona()
+        sensor = Sensor.createSensor(tipo, zona)
+        return senMenu.sensor_mainMenu(sensor)
+
 menuLogin = Start()
+menuLogin.LoginSensor()

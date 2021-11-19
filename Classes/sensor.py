@@ -1,11 +1,11 @@
-class sensor:
+class Sensor:
     def __init__(self, tipoDeEvento, nombreZona):
         self.tipo = tipoDeEvento
         self.zona = nombreZona
 
     def getInfo(self):
         print("Current events in this zone: \n")
-        with open('Datasets\\Event_database.csv', 'r', newline='') as events:
+        with open('Datasets\\Events_database.csv', 'r', newline='') as events:
             i = 0
             for line in events:
                 row = line.strip().split(",")
@@ -14,7 +14,7 @@ class sensor:
                     i += 1
                     
     def top3Zona(self):
-        with open('Datasets\\Event_database.csv', 'r', newline='') as events:
+        with open('Datasets\\Events_database.csv', 'r', newline='') as events:
             overall_values = []
             for line in events:
                 row = line.strip().split(",")
@@ -41,3 +41,7 @@ class sensor:
         listaParaCheck = self.listaParaPicos
         if value > listaParaCheck[0]:
             print(f"HAY UN NUEVO PICO DE {value} PERSONAS")
+
+    @classmethod
+    def createSensor(cls, tipo, zona):
+        return cls(tipo, zona)
