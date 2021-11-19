@@ -12,7 +12,7 @@ class UserMenu:
                 if menu_input == '1':
                     UserMenu.User_eventMenu(self)
                 elif menu_input == '2':
-                    pass
+                    UserMenu.User_contactMenu(self)
                 elif menu_input == '3':
                     print('logging off. Exiting program.')
                     break
