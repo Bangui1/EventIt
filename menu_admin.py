@@ -1,4 +1,4 @@
-from home import intAdmin
+from home_admins import intAdmin
 
 class AdminMenu:
 

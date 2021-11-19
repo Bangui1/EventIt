@@ -1,5 +1,5 @@
-from admin_menu import menu_admin
-from user_menu import menu_user
+from menu_admin import menu_admin
+from menu_users import menu_user
 from login import menuLogin
 class Menu:
     def mainMenu(self):
