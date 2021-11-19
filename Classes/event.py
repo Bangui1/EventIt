@@ -3,7 +3,7 @@ from csv import writer
 def checkCantidad():
     try:
         cant = input("¿Cuántas conocidos forman parte del evento?: ")
-        if cant <= 0:
+        if cant > 0:
             raise ValueError
         else:
             return cant
@@ -16,7 +16,7 @@ def addPeople():
         cant = int(checkCantidad())
         people = []
         i = 0
-        while i in range(-1, cant):
+        while i in range(cant):
             user = int(input("Ingresar CUIL o telefono de usuario que forme parte del evento: "))
             try:
                 found = False
