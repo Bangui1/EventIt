@@ -169,4 +169,3 @@ class Start:
         return senMenu.sensor_mainMenu(sensor)
 
 menuLogin = Start()
-menuLogin.LoginSensor()

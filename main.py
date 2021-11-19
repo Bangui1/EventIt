@@ -1,12 +1,16 @@
 from home_admins import InterfazAdmin
 from login import Start
+from program_menu import Menu
 
 
 if __name__ == '__main__':
 
-    sys = Start()
+
+    menu = Menu()
+    menu.mainMenu()
+    #sys = Start()
     #sys.Register()
-    sys.Login()
+    #sys.Login()
     #sys.LoginAdmin()
     #sys.checkCuil()
 
