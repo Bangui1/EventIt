@@ -3,37 +3,42 @@ from csv import writer
 def checkCantidad():
     try:
         cant = input("¿Cuántas conocidos forman parte del evento?: ")
-        if cant > 0:
+        if int(cant) < 0:
             raise ValueError
         else:
-            return cant
-    except:
+            return int(cant)
+    except ValueError:
         print("Error. Utilizar números positivos")
         checkCantidad()
             
 def addPeople():
-    with open('Datasets\\User_database.csv', 'a', newline='') as user_database:
+    with open('Datasets\\User_database.csv', 'r', newline='') as user_database:
         cant = int(checkCantidad())
         people = []
         i = 0
         while i in range(cant):
-            user = int(input("Ingresar CUIL o telefono de usuario que forme parte del evento: "))
+            user = input("Ingresar CUIL o telefono de usuario que forme parte del evento: ")
             try:
                 found = False
                 for line in user_database:
                     row = line.strip().split(',')
-                    if user == row[0] or row[1]:
-                        people.append(user)
+                    if user == row[0] or user == row[1]:
+                        people.append(int(user))
                         found = True
                         i += 1
                 if found:
                     pass
                 else:
                     raise ValueError
-            except:
+            except ValueError:
                 print("User not found. Try again")
                 addPeople()
-        return people
+    people_text = ""
+    count = 0
+    while count < len(people):
+        people_text += (str(people[count]))
+        count += 1
+    return people_text
        
 def seleccionarTiposEvent():
     with open('Datasets\\Event_types.csv', 'r', newline='') as tipos:
@@ -58,9 +63,12 @@ def seleccionarTiposEvent():
 
 def getZone():
     with open('Datasets\\CurrentUser.csv', 'r', newline='') as user:
+        i = 0
         for line in user:
-            row = line.strip().split(",")
-            cuil = row[0]
+            if i == 0:
+                row = line.strip().split(",")
+                cuil = row[0]
+            i += 1
         with open('Datasets\\Anses_dataset.csv', 'r', newline='') as user_data:
             for line in user_data:
                 row = line.strip().split(",")
@@ -72,7 +80,7 @@ def requestEvent():
     zona = getZone()
     gente = addPeople()
     info = input("Describir el evento: ")
-    with open('Datasets\\Event_requests.csv', 'a', newline='') as reqs:
+    with open('Datasets\\Events_requests.csv', 'a', newline='') as reqs:
         event_data = [tipo, zona, info, gente]
         data_writer = writer(reqs, lineterminator='\r')
         data_writer.writerow(event_data)

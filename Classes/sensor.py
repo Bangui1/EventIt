@@ -1,4 +1,3 @@
-from _typeshed import OpenTextModeReading
 from csv import writer
 
 class Sensor:

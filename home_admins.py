@@ -145,17 +145,17 @@ class InterfazAdmin:
                         i += 1
                     else:
                         row = line.strip().split(",")
-                        print("Eventos a ser aceptados:\n")
-                        print(f"{i}.\t{row}")
+                        print("\nEventos a ser aceptados:\n")
+                        print(f"{i}.\t{row}\n")
                         i += 1
                 acceptee = input("Número del evento que quiere aceptar: ")
                 return int(acceptee)
             except:
                 print("numero fuera de rango. Reintentar")
-                self.printRequests(self)
+                self.printRequests()
 
     def acceptEventRequest(self):
-        numero = self.printRequests(self)
+        numero = self.printRequests()
         try:
             acc = int(numero)
             with open('Datasets\\Events_requests.csv', 'r', newline='') as rqts:
