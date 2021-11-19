@@ -27,13 +27,11 @@ class UserMenu:
         running = True
         while running:
             try:
-                print('\n\nPlease select an action: \n1.- Report Event \t2.- \t3.- Return to main menu')
+                print('\n\nPlease select an action: \n1.- Report Event \t2.- Return to main menu')
                 menu_input = input('Enter a menu number: ')
                 if menu_input == '1':
                     intUser.reportEvent()
                 elif menu_input == '2':
-                    pass
-                elif menu_input == '3':
                     print('logging off. Exiting program.')
                     running = False
                 else:

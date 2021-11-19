@@ -13,10 +13,10 @@ def checkCantidad():
             
 def addPeople():
     with open('Datasets\\User_database.csv', 'a', newline='') as user_database:
-        cant = checkCantidad()
+        cant = int(checkCantidad())
         people = []
         i = 0
-        while i in range(cant):
+        while i in range(-1, cant):
             user = input("Ingresar CUIL o telefono de usuario que forme parte del evento: ")
             try:
                 found = False
@@ -61,7 +61,7 @@ def getZone():
         for line in user:
             row = line.strip().split(",")
             cuil = row[0]
-        with open('Datasets\\dataset_Anses.csv', 'r', newline='') as user_data:
+        with open('Datasets\\Anses_dataset.csv', 'r', newline='') as user_data:
             for line in user_data:
                 row = line.strip().split(",")
                 if row[0] == cuil:
