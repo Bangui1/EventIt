@@ -3,25 +3,42 @@ from Classes.users import Ciudadano, Usuario
 from Classes.map import enter_map
 from menu_admin import AdminMenu, menu_admin
 import folium, pandas, webbrowser
+from home_admins import intAdmin
 
 class Start:
     def checkCuil(self):
         check = False
         while check == False:
             cuil = input('Please enter your CUIL: ')
-            try:
-                #falta que chequee el anses database
-                with open('Datasets\\User_database.csv', 'r') as user_database:
-                    for i in user_database:
-                        row = i.strip().split(',')
-                        if cuil == row[0]:
-                            print ("Cuil already exist, try another one")
-                            raise ValueError
-                check = True
-                return cuil
+            anses_check = Start.checkCuilDatabase(self, cuil)
+            if anses_check:
+                try:
+                    with open('Datasets\\User_database.csv', 'r') as user_database:
+                        for i in user_database:
+                            row = i.strip().split(',')
+                            if cuil == row[0]:
+                                print ("Cuil already exist, try another one")
+                                raise ValueError
+                    check = True
+                    return cuil
 
-            except ValueError:
-                pass
+                except ValueError:
+                    pass
+            else:
+                print('CUIL not in database, please enter  a valid CUIL.')
+
+
+    def checkCuilDatabase(self, cuil):
+        valid_cuil = False
+        with open('Datasets\\Anses_database.csv', 'r') as anses_database:
+            for line in anses_database:
+                row = line.strip().split(',')
+                if cuil == row[0]:
+                    valid_cuil = True
+        return valid_cuil
+
+
+
 
 
     def checkPhoneNumber(self):                                
@@ -78,7 +95,7 @@ class Start:
         password = Start.checkPassword(self) 
         with open('Datasets\\User_database.csv', 'a', newline='') as user_database:
             user = Ciudadano(username, password, cuil, phone_number) #para poder acceder a notifs, funciones, etc
-            user_data = [cuil, phone_number, user.username, user.password]
+            user_data = [cuil, phone_number, user.username, user.password, 'Unblocked']
             data_writer = writer(user_database, lineterminator='\r')
             data_writer.writerow(user_data)
         with open(f'Users\\{cuil}.csv', 'w', newline = '') as user_csv:
@@ -97,6 +114,7 @@ class Start:
                     for line in database:
                         row = line.strip().split(',')
                         if username == row[2].strip():
+                            if not intAdmin.checkIfBlocked(username):
                                 if password == row[3].strip():
                                     cuil = row[0]
                                     with open(f'Users\\{cuil}.csv', 'r') as user_data:
@@ -104,19 +122,21 @@ class Start:
                                         for line in user_data:
                                             row = line.strip().split(',')
                                             copied_data.append(row)
-                                    with open('Datasets\\CurrentUser.csv', 'w') as user:
-                                        data_writer = writer(user, lineterminator = '\r')
-                                        for data in copied_data:    
-                                            data_writer.writerow(data)
+                                            with open('Datasets\\CurrentUser.csv', 'w') as user:
+                                                data_writer = writer(user, lineterminator = '\r')
+                                                for data in copied_data:
+                                                    data_writer.writerow(data)
                                     log = True
-                                    #algo que te mande a interfaz user
+                            else:
+                                print('This user is blocked. Please reach an administrator.')
+                                break
                     if log:
                         pass
                     else:
                         raise ValueError
                 except ValueError:
                     print('Username and password do not match. Please try again.')
-                    pass
+
 
     def LoginAdmin(self):
         log = False

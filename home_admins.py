@@ -3,14 +3,14 @@ from csv import writer
 
 
 class InterfazAdmin:
-    def checkIfBlocked(username):
+    def checkIfBlocked(self, username):
         with open('Datasets\\User_database.csv', 'r', newline='') as user_database:
             try:
                 found = False
                 for line in user_database:
                     row = line.strip().split(',')
                     if username == row[2].strip():
-                        return row[5].blockedState
+                        return row[5] == 'Blocked'
                 if found:
                     pass
                 else:
@@ -21,43 +21,57 @@ class InterfazAdmin:
     
     def blockUser(self):
         username = input("Ingresar nombre del usuario al cual quiere bloquear: ")
-        with open('Datasets\\User_database.csv', 'r', newline='') as user_database:
-            try:
+        try:
+            with open('Datasets\\User_database.csv', 'r', newline='') as user_database:
                 found = False
+                user_data = list()
                 for line in user_database:
                     row = line.strip().split(',')
                     if username == row[2].strip():
                         found = True
-                        if InterfazAdmin.checkIfBlocked(username) == False:
-                            row[5].blockedState = True
+                        if not InterfazAdmin.checkIfBlocked(username):
+                            row[5] = 'Blocked'
                         else:
                             print("User already blocked!")
-                if found:
-                    pass
-                else:
-                    raise ValueError
-            except:
-                print('Username Not found')
+                    user_data.append(row)
+            if found:
+                with open('Datasets\\User_database.csv', 'w', newline = '') as user_database:
+                    data_writer = writer(user_database, lineterminator = '\r')
+                    for data in user_data:
+                        data_writer.writerow(data)
+            else:
+                raise ValueError
+        except:
+            print('Username Not found')
+
 
     def unblockUser(self):
         username = input("Ingresar nombre del usuario al cual quiere bloquear: ")
-        with open('Datasets\\User_database.csv', 'a', newline='') as user_database:
-            try:
-                found = False
+        try:
+            found = False
+            user_data = list()
+            with open('Datasets\\User_database.csv', 'a', newline='') as user_database:
                 for line in user_database:
                     row = line.strip().split(',')
                     if username == row[2].strip():
                         found = True
                         if InterfazAdmin.checkIfBlocked(username):
-                            row[5].blockedState = False
+                            row[5] = 'Unblocked'
                         else:
                             print("User is not blocked!")
-                if found:
-                    pass
-                else:
-                    raise ValueError
-            except ValueError:
-                print("Username Not Found")
+                    
+            if found:
+                with open('Datasets\\User_database.csv', 'w', newline= '') as user_database:
+                    data_writer = writer(user_database, lineterminator = '\r')
+                    for data in user_data:
+                        data_writer.writerow(data)
+            else:
+                raise ValueError
+        except ValueError:
+            print("Username Not Found")
+
+
+
 
     def CheckAdmin(self):
         with open('Datasets\\Admin_dataset.csv', 'r') as user_database:
