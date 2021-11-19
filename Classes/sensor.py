@@ -1,3 +1,6 @@
+from _typeshed import OpenTextModeReading
+from csv import writer
+
 class Sensor:
     def __init__(self, tipoDeEvento, nombreZona):
         self.tipo = tipoDeEvento
@@ -16,6 +19,7 @@ class Sensor:
     def top3Zona(self):
         with open('Datasets\\Events_database.csv', 'r', newline='') as events:
             overall_values = []
+            lista_final = []
             for line in events:
                 row = line.strip().split(",")
                 if self.zona == row[1]:
@@ -23,25 +27,67 @@ class Sensor:
                     overall_values.append(cantPersonas)
             en_orden = sorted(overall_values)
             en_orden.sort(reverse=True)
-            return en_orden[:4]
-        
-    @property
-    def listaParaPicos(self): #NO SE TIENE EN CUENTA LA ZONA NI TIPO - SON PICOS OVERALL
-        with open('Datasets\\Event_database.csv', 'r', newline='') as events:
-            overall_values = []
-            for line in events:
-                row = line.strip().split(",")
-                cantPersonas = len(row) - 3
-                overall_values.append(cantPersonas)
-            ordenada = sorted(overall_values)
-            ordenada.sort(reverse=True)
-            return ordenada
-        
-    def checkPico(self, value):
-        listaParaCheck = self.listaParaPicos
-        if value > listaParaCheck[0]:
-            print(f"HAY UN NUEVO PICO DE {value} PERSONAS")
+            ordenadas = en_orden[:4]
+            i = 0
+            while i < 3:
+                for line2 in events:
+                    row2 = line.strip().split(",")
+                    if (len(row2) - 3) == ordenadas[i]:
+                        i +=1
+                        texto = f"{row2[2]}. {len(row2) - 3} personas"
+                        lista_final.append(texto)
+            return lista_final
 
     @classmethod
     def createSensor(cls, tipo, zona):
         return cls(tipo, zona)
+    
+
+class evento:
+    def __init__(self, tipo, zona, desc, gente):
+        self.zona = zona
+        self.tipo = tipo
+        self.desc = desc
+        self.gente = gente
+        
+    def __repr__(self):
+        return f"Tipo: {self.tipo}. Zona: {self.zona} Desc: {self.desc}. Personas: {self.gente}"
+        
+    def __lt__(self, other):
+        return self.gente < other.gente
+    def __le__(self, other):
+        return self.gente <= other.gente
+    def __eq__(self, other):
+        return self.gente == other.gente
+    def __ne__(self, other):
+        return self.gente != other.gente
+    def __gt__(self, other):
+        return self.gente > other.gente
+    def __ge__(self, other):
+        return self.gente >= other.gente
+        
+        
+def listaPicos():
+    with open("Datasets\Evento_pico.csv", "r", newline="") as pico:
+        eventos = []
+        for line in pico:
+            row = line.strip().split(",")
+            evento = evento(row[0], row[1], row[2], len(row) - 3)
+            eventos.append(evento)
+        orden = sorted(eventos)
+        orden.sort(reverse=True)
+        return orden
+
+def checkPico(event):
+    picos = listaPicos()
+    if event > picos[0]:
+        print(f"**** HAY UN NUEVO PICO DE {event.gente} PERSONAS ****")
+        with open("Datasets\Evento_pico.csv", "a", newline="") as pico:
+            pico_writer = writer(pico, lineterminator="")
+            texto = f"{evento.tipo},{evento.zona},{evento.desc},{evento.gente}"
+            pico_writer.writerow(texto)
+            
+def currentPico():
+    picos = listaPicos()
+    pico = picos[0]
+    return pico

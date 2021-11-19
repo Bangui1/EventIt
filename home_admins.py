@@ -1,5 +1,5 @@
 from csv import writer
-
+from Classes.sensor import checkPico, evento
 
 class InterfazAdmin:
     def checkIfBlocked(self, username):
@@ -136,28 +136,44 @@ class InterfazAdmin:
                 print("Admin not found")
 
 
-    def acceptEventRequest(self):
+    def printRequests(self):
         with open('Datasets\\Events_requests.csv', 'r', newline='') as rqts:
-            i = 0
-            for line in rqts:
-                row = line.strip().split(",")
-                print("Eventos a ser aceptados:\n")
-                print(f"{i}.\t{row}")
             try:
+                i = 0
+                for line in rqts:
+                    if i == 0:
+                        i += 1
+                    else:
+                        row = line.strip().split(",")
+                        print("Eventos a ser aceptados:\n")
+                        print(f"{i}.\t{row}")
+                        i += 1
                 acceptee = input("Número del evento que quiere aceptar: ")
-                acc = int(acceptee)
+                return int(acceptee)
+            except:
+                print("numero fuera de rango. Reintentar")
+                self.printRequests(self)
+
+    def acceptEventRequest(self):
+        numero = self.printRequests(self)
+        try:
+            acc = int(numero)
+            with open('Datasets\\Events_requests.csv', 'r', newline='') as rqts:
                 num = 0
                 for line in rqts:
-                    row2 = line.strip().split()
+                    row = line.strip().split()
                     if num == acc:
                         writer_rqts = writer(rqts, lineterminator="\r")
                         writer_rqts.writerow(line)
-                    num += 1
-                    with open('Datasets\\Events_database.csv', 'a', newline='') as events:
-                        writer_eventos = writer(events, lineterminator="\r")
-                        writer_eventos.writerow(row2)
-            except:
-                print("número fuera de rango") 
+                        event = evento(row[0], row[1], row[2], (len(row) - 3))
+                        checkPico(event)
+                    else:
+                        num += 1
+            with open('Datasets\\Events_database.csv', 'a', newline='') as events:
+                writer_eventos = writer(events, lineterminator="\r")
+                writer_eventos.writerow(row)
+        except:
+            print("número fuera de rango") 
                     
     def denyEventRequest(self):
         with open('Datasets\\Events_requests.csv', 'a', newline='') as rqts:
