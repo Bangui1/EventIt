@@ -31,6 +31,7 @@ class InterfazAdmin:
                         found = True
                         if not InterfazAdmin.checkIfBlocked(self, username):
                             row[4] = 'Blocked'
+                            print('User successfuly Blocked.')
                         else:
                             print("User already blocked!")
                     user_data.append(row)
@@ -57,6 +58,7 @@ class InterfazAdmin:
                         found = True
                         if InterfazAdmin.checkIfBlocked(self, username):
                             row[4] = 'Unblocked'
+                            print('\nUser successfuly Unblocked.')
                         else:
                             print("User is not blocked!")
                         user_data.append(row)
