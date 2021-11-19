@@ -1,4 +1,3 @@
-from Classes.users import Admin
 from csv import writer
 
 
@@ -10,18 +9,19 @@ class InterfazAdmin:
                 for line in user_database:
                     row = line.strip().split(',')
                     if username == row[2].strip():
-                        return row[5] == 'Blocked'
+                        found = True
+                        return row[4] == 'Blocked'
                 if found:
                     pass
                 else:
                     raise ValueError
-            except:
+            except ValueError:
                 print("User not found.")
 
     
     def blockUser(self):
-        username = input("Ingresar nombre del usuario al cual quiere bloquear: ")
         try:
+            username = input("Ingresar nombre del usuario al cual quiere bloquear: ")
             with open('Datasets\\User_database.csv', 'r', newline='') as user_database:
                 found = False
                 user_data = list()
@@ -29,8 +29,8 @@ class InterfazAdmin:
                     row = line.strip().split(',')
                     if username == row[2].strip():
                         found = True
-                        if not InterfazAdmin.checkIfBlocked(username):
-                            row[5] = 'Blocked'
+                        if not InterfazAdmin.checkIfBlocked(self, username):
+                            row[4] = 'Blocked'
                         else:
                             print("User already blocked!")
                     user_data.append(row)
@@ -41,24 +41,25 @@ class InterfazAdmin:
                         data_writer.writerow(data)
             else:
                 raise ValueError
-        except:
+        except ValueError:
             print('Username Not found')
 
 
     def unblockUser(self):
-        username = input("Ingresar nombre del usuario al cual quiere bloquear: ")
         try:
+            username = input("Ingresar nombre del usuario al cual quiere desbloquear: ")
             found = False
             user_data = list()
-            with open('Datasets\\User_database.csv', 'a', newline='') as user_database:
+            with open('Datasets\\User_database.csv', 'r', newline='') as user_database:
                 for line in user_database:
                     row = line.strip().split(',')
                     if username == row[2].strip():
                         found = True
-                        if InterfazAdmin.checkIfBlocked(username):
-                            row[5] = 'Unblocked'
+                        if InterfazAdmin.checkIfBlocked(self, username):
+                            row[4] = 'Unblocked'
                         else:
                             print("User is not blocked!")
+                        user_data.append(row)
                     
             if found:
                 with open('Datasets\\User_database.csv', 'w', newline= '') as user_database:
@@ -103,8 +104,7 @@ class InterfazAdmin:
         username = InterfazAdmin.CheckAdmin(self)
         password = InterfazAdmin.CheckPassword(self)
         with open('Datasets\\Admin_dataset.csv', 'a', newline='') as adm_database:
-            admin = Admin(username, password)
-            adm_data = [admin.username, admin.password]
+            adm_data = [username, password]
             data_writer = writer(adm_database, lineterminator='\r')
             data_writer.writerow(adm_data)
 

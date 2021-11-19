@@ -30,7 +30,7 @@ class Start:
 
     def checkCuilDatabase(self, cuil):
         valid_cuil = False
-        with open('Datasets\\Anses_database.csv', 'r') as anses_database:
+        with open('Datasets\\Anses_dataset.csv', 'r') as anses_database:
             for line in anses_database:
                 row = line.strip().split(',')
                 if cuil == row[0]:
@@ -129,10 +129,9 @@ class Start:
                                     log = True
                             else:
                                 print('This user is blocked. Please reach an administrator.')
-                                break
-                    if log:
-                        pass
-                    else:
+                                log = True
+                    
+                    if not log:
                         raise ValueError
                 except ValueError:
                     print('Username and password do not match. Please try again.')
