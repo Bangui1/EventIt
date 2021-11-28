@@ -217,7 +217,7 @@ class InterfazAdmin:
                     if num == acc:
                         event = evento(row[0], row[1], row[2], (len(row) - 3))
                         checkPico(event)
-                        with open('Datasets\\Eventss_database.csv', 'a', newline='') as events:
+                        with open('Datasets\\Events_database.csv', 'a', newline='') as events:
                             writer_eventos = writer(events, lineterminator="\r")
                             writer_eventos.writerow(row)
                     else:

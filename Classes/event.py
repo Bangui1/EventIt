@@ -12,30 +12,31 @@ def checkCantidad():
         checkCantidad()
             
 def addPeople():
-    with open('Datasets\\User_database.csv', 'r', newline='') as user_database:
-        cant = int(checkCantidad())
-        people = []
+    cant = int(checkCantidad())
+    people = []
+    try:
         i = 0
         while i in range(cant):
-            user = input("Ingresar CUIL o telefono de usuario que forme parte del evento: ")
-            try:
+            with open('Datasets\\User_database.csv', 'r', newline='') as user_database:
+                user = input("Ingresar CUIL o telefono de usuario que forme parte del evento: ")
                 found = False
                 for line in user_database:
                     row = line.strip().split(',')
                     if user == row[0] or user == row[1]:
                         people.append(int(user))
                         found = True
-                        i += 1
                 if found:
-                    pass
+                    i += 1
                 else:
                     raise ValueError
-            except ValueError:
-                print("User not found. Try again")
-                addPeople()
+    except ValueError:
+        print("User not found. Try again")
+        addPeople()
     people_text = ""
     count = 0
     while count < len(people):
+        if count != 0:
+            people_text += ","
         people_text += (str(people[count]))
         count += 1
     return people_text

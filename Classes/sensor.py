@@ -27,15 +27,16 @@ class Sensor:
             en_orden = sorted(overall_values)
             en_orden.sort(reverse=True)
             ordenadas = en_orden[:4]
-            i = 0
-            while i < 3:
-                for line2 in events:
-                    row2 = line.strip().split(",")
-                    if (len(row2) - 3) == ordenadas[i]:
-                        i +=1
-                        texto = f"{row2[2]}. {len(row2) - 3} personas"
-                        lista_final.append(texto)
-            return lista_final
+            with open('Datasets\\Events_database.csv', 'r', newline='') as events:
+                i = 0
+                while i < 3:
+                    for line2 in events:
+                        row2 = line2.strip().split(",")
+                        if (len(row2) - 3) == ordenadas[i]:
+                            i +=1
+                            texto = f"{row2[2]}. {len(row2) - 3} personas"
+                            lista_final.append(texto)
+                return lista_final
 
     @classmethod
     def createSensor(cls, tipo, zona):
@@ -50,7 +51,7 @@ class evento:
         self.gente = gente
         
     def __repr__(self):
-        return f"Tipo: {self.tipo}. Zona: {self.zona} Desc: {self.desc}. Personas: {self.gente}"
+        return f"{self.tipo},{self.zona},{self.desc},{self.gente}"
         
     def __lt__(self, other):
         return self.gente < other.gente
@@ -70,7 +71,7 @@ def listaPicos():
     with open("Datasets\Evento_pico.csv", "r", newline="") as pico:
         eventos = []
         for line in pico:
-            row = line.strip().split(",")
+            row = line.strip().split(',')
             event = evento(row[0], row[1], row[2], len(row) - 3)
             eventos.append(event)
         orden = sorted(eventos)
@@ -83,7 +84,7 @@ def checkPico(event):
         print(f"**** HAY UN NUEVO PICO DE {event.gente} PERSONAS ****")
         with open("Datasets\Evento_pico.csv", "a", newline="") as pico:
             pico_writer = writer(pico, lineterminator="")
-            texto = f"{evento.tipo},{evento.zona},{evento.desc},{evento.gente}"
+            texto = [{event.tipo},{event.zona},{event.desc},{event.gente}]
             pico_writer.writerow(texto)
             
 def currentPico():
