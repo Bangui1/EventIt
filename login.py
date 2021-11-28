@@ -57,6 +57,7 @@ class Start:
                         else: 
                             check = True
                             return phone_number
+                    return phone_number
             except ValueError:
                 pass
                     
@@ -75,6 +76,7 @@ class Start:
                             else: 
                                 check = True
                                 return username
+                        return username
             except ValueError:
                 pass
 
@@ -97,7 +99,7 @@ class Start:
         password = Start.checkPassword(self) 
         with open('Datasets\\User_database.csv', 'a', newline='') as user_database:
             user = Ciudadano(username, password, cuil, phone_number) #para poder acceder a notifs, funciones, etc
-            user_data = [cuil, phone_number, user.username, user.password, 'Unblocked']
+            user_data = [cuil, phone_number, user.username, user.password, 'Unblocked','0']
             data_writer = writer(user_database, lineterminator='\r')
             data_writer.writerow(user_data)
         with open(f'Users\\{cuil}.csv', 'w', newline = '') as user_csv:
@@ -124,8 +126,10 @@ class Start:
                                     with open(f'Users\\{cuil}.csv', 'r') as user_data:
                                         copied_data = list()
                                         for line in user_data:
-                                            row = line.strip().split(',')
-                                            copied_data.append(row)
+                                            row2 = line.strip().split(',')
+                                            if row2[0] == cuil:
+                                                row2 = row
+                                            copied_data.append(row2)
                                             with open('Datasets\\CurrentUser.csv', 'w') as user:
                                                 data_writer = writer(user, lineterminator = '\r')
                                                 for data in copied_data:

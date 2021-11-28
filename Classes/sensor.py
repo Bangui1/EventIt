@@ -71,8 +71,8 @@ def listaPicos():
         eventos = []
         for line in pico:
             row = line.strip().split(",")
-            evento = evento(row[0], row[1], row[2], len(row) - 3)
-            eventos.append(evento)
+            event = evento(row[0], row[1], row[2], len(row) - 3)
+            eventos.append(event)
         orden = sorted(eventos)
         orden.sort(reverse=True)
         return orden

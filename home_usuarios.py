@@ -1,5 +1,6 @@
 from Classes.event import requestEvent, checkCantidad, addPeople, seleccionarTiposEvent, getZone
 from csv import writer
+from home_admins import InterfazAdmin
 class InterfazUser:
     @property
     def currentUser(self):
@@ -15,7 +16,7 @@ class InterfazUser:
             for line in user:
                 row = line.strip().split(",")
                 usuario = row[0]
-                return usuario
+                return str(usuario)
     
 
 
@@ -31,10 +32,10 @@ class InterfazUser:
                             with open(f'Users\\{row[0]}.csv', 'r', newline = '') as user_data:
                                 copied_data = list()
                                 for line in user_data:
-                                    row = line.strip().split(',')
-                                    if row[0] == 'Requests':
-                                        row.append(InterfazUser.currentCuil)
-                                    copied_data.append(row)
+                                    row2 = line.strip().split(',')
+                                    if row2[0] == 'Requests':
+                                        row2.append(str(self.currentCuil))
+                                    copied_data.append(row2)
                             with open(f'Users\\{row[0]}.csv', 'w', newline = '') as user_data:
                                 data_writer = writer(user_data, lineterminator = '\r')
                                 for data in copied_data:
@@ -53,7 +54,7 @@ class InterfazUser:
             for line in user_data:
                 row = line.strip().split(",")
                 if i == 2:
-                    count = 0
+                    count = 1
                     while count < len(row):
                         print(row[count])
                         try:
@@ -67,16 +68,37 @@ class InterfazUser:
                                         if row2[0] == 'Requests':
                                             row_index = row2.index(row[count])
                                             del row2[row_index]
-                                        
                                         copied_data.append(row2)
+
+                                with open(f'Users\\{str(row[count])}.csv', 'r', newline = '') as rejected_user:
+                                    rejected_data = list()
+                                    for line in rejected_user:
+                                        row3 = line.strip().split(',')
+                                        if row3[0] == str(row[count]):
+                                            attempts = int(row3[5])
+                                            attempts += 1
+                                            row3[5] = str(attempts)
+                                            if attempts >= 5:
+                                                row3[4] == 'Blocked'
+                                                InterfazAdmin.auto_BlockUser(self, row3[0])
+
+                                        rejected_data.append(row3)
+
+                                        
                                 with open('Datasets\\CurrentUser.csv', 'w', newline = '') as current_user:
                                     data_writer = writer(current_user, lineterminator = '\r')
                                     for data in copied_data:
                                         data_writer.writerow(data)
-                                with open(f'Users\\{InterfazUser.currentCuil}.csv', 'w', newline = '') as current_user:
+                                with open(f'Users\\{str(self.currentCuil)}.csv', 'w', newline = '') as current_user:
                                     data_writer = writer(current_user, lineterminator = '\r')
                                     for data in copied_data:
                                         data_writer.writerow(data)
+
+                                with open(f'Users\\{str(row[count])}.csv', 'w', newline = '') as rejected_user:
+                                    data_writer = writer(rejected_user, lineterminator = '\r')
+                                    for data in rejected_data:
+                                        data_writer.writerow(data)
+
                                 count += 1
                             elif action.lower() == "y":
 
@@ -95,7 +117,7 @@ class InterfazUser:
                                     data_writer = writer(current_user, lineterminator = '\r')
                                     for data in copied_data:
                                         data_writer.writerow(data)
-                                with open(f'Users\\{InterfazUser.currentCuil}.csv', 'w', newline = '') as current_user:
+                                with open(f'Users\\{str(self.currentCuil)}.csv', 'w', newline = '') as current_user:
                                     data_writer = writer(current_user, lineterminator = '\r')
                                     for data in copied_data:
                                         data_writer.writerow(data)
@@ -105,7 +127,7 @@ class InterfazUser:
                                     for line in accepted_user:
                                         row3 = line.strip().split(',')
                                         if row3[0] == 'Friends':
-                                            row3.append(InterfazUser.currentCuil)
+                                            row3.append(str(self.currentCuil))
                                         data_copy.append(row3)
                                     
                                 with open(f'Users\\{row[count]}.csv', 'w', newline = '') as accepted_user:
