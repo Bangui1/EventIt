@@ -9,7 +9,7 @@ class SensorMenu:
         running = True
         while running:
             try:
-                print('\n\nPlease select a menu: \n1.- Mostrar top 3 zona\t2.- Mostrar info\t3.- Último pico\t4.- Tablero Picos\t5.- Abrir Mapa\t6. - Exit Program')
+                print('\n\nPlease select a menu: \n1.- Mostrar top 3 zona\t2.- Mostrar info\t3.- Último pico\t4.- Tablero Picos\t5.- Abrir Mapa\t6.- Exit Program')
                 menu_input = input('Enter menu number: ')
                 if menu_input == '1':
                     print(sensor.top3Zona())
