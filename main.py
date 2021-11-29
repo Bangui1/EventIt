@@ -10,17 +10,3 @@ if __name__ == '__main__':
 
     menu = Menu()
     menu.mainMenu()
-    
-    # menuAdm = AdminMenu()
-    # menuAdm.Admin_mainMenu()
-    # menuAdm.Admin_adminMenu()
-    # menuAdm.Admin_eventMenu()
-    # # menuAdm.Admin_userMenu()
-    
-    # sensor = SensorMenu()
-    # sensor.sensor_mainMenu()
-    
-    # # userMen = UserMenu()
-    # # userMen.User_mainMenu()
-    # # userMen.User_eventMenu()
-    # userMen.User_contactMenu()
