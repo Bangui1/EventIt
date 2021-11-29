@@ -16,9 +16,9 @@ class SensorMenu:
                 elif menu_input == '2':
                     sensor.getInfo()
                 elif menu_input == "3":
-                    currentPico()
+                    print(currentPico())
                 elif menu_input == "4":
-                    listaPicos()
+                    print(listaPicos())
                 elif menu_input == '5':
                     enter_map()
                 elif menu_input == "6":

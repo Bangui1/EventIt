@@ -19,24 +19,22 @@ class Sensor:
         with open('Datasets\\Events_database.csv', 'r', newline='') as events:
             overall_values = []
             lista_final = []
+            zone_events = list()
             for line in events:
                 row = line.strip().split(",")
                 if self.zona == row[1]:
                     cantPersonas = len(row) - 3
                     overall_values.append(cantPersonas)
+                    zone_events.append(row)
             en_orden = sorted(overall_values)
             en_orden.sort(reverse=True)
-            ordenadas = en_orden[:4]
-            with open('Datasets\\Events_database.csv', 'r', newline='') as events:
-                i = 0
-                while i < 3:
-                    for line2 in events:
-                        row2 = line2.strip().split(",")
-                        if (len(row2) - 3) == ordenadas[i]:
-                            i +=1
-                            texto = f"{row2[2]}. {len(row2) - 3} personas"
-                            lista_final.append(texto)
-                return lista_final
+            ordenadas = en_orden[:3]
+            for value in ordenadas:
+                for event in zone_events:
+                    if (len(event) - 3) == value :
+                        texto = f"{event[2]}. {len(event) - 3} personas"
+                        lista_final.append(texto)
+            return lista_final
 
     @classmethod
     def createSensor(cls, tipo, zona):
@@ -83,8 +81,8 @@ def checkPico(event):
     if event > picos[0]:
         print(f"**** HAY UN NUEVO PICO DE {event.gente} PERSONAS ****")
         with open("Datasets\Evento_pico.csv", "a", newline="") as pico:
-            pico_writer = writer(pico, lineterminator="")
-            texto = [{event.tipo},{event.zona},{event.desc},{event.gente}]
+            pico_writer = writer(pico, lineterminator="\r")
+            texto = [event.tipo,event.zona,event.desc,event.gente]
             pico_writer.writerow(texto)
             
 def currentPico():

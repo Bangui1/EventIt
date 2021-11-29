@@ -32,12 +32,10 @@ def addPeople():
     except ValueError:
         print("User not found. Try again")
         addPeople()
-    people_text = ""
+    people_text = list()
     count = 0
     while count < len(people):
-        if count != 0:
-            people_text += ","
-        people_text += (str(people[count]))
+        people_text.append(str(people[count]))
         count += 1
     return people_text
        
@@ -81,8 +79,11 @@ def requestEvent():
     zona = getZone()
     gente = addPeople()
     info = input("Describir el evento: ")
+
     with open('Datasets\\Events_requests.csv', 'a', newline='') as reqs:
-        event_data = [tipo, zona, info, gente]
+        event_data = [tipo, zona, info]
+        for people in gente:
+            event_data.append(people.strip())
         data_writer = writer(reqs, lineterminator='\r')
         data_writer.writerow(event_data)
     
