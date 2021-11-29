@@ -220,10 +220,10 @@ class InterfazAdmin:
                         with open('Datasets\\Events_database.csv', 'a', newline='') as events:
                             writer_eventos = writer(events, lineterminator="\r")
                             writer_eventos.writerow(row)
+                        num += 1
                     else:
                         num += 1
                         request_data.append(row)
-            
             with open('Datasets\\Events_requests.csv', 'w', newline = '') as requests:
                 data_writer = writer(requests, lineterminator = '\r')
                 for data in request_data:
