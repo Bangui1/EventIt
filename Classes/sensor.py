@@ -46,7 +46,7 @@ class evento:
         self.zona = zona
         self.tipo = tipo
         self.desc = desc
-        self.gente = str(gente)
+        self.gente = int(gente)
         
     def __repr__(self):
         return f"{self.tipo},{self.zona},{self.desc},{self.gente}"
