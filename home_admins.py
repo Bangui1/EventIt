@@ -134,7 +134,7 @@ class InterfazAdmin:
         with open('Datasets\\Admin_dataset.csv', 'r') as user_database:
             check = False
             while check == False:
-                username = input('Enter your username: ')
+                username = input('Enter new username: ')
                 for line in user_database:
                     row = line.strip().split(',')
                     if username == row[0].strip():
